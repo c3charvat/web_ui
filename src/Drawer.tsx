@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import LightDarkSwitch from './LightDarkSwitch';
+import RadioButtonGroup from './Radio_button_group';
 
 const drawerWidth = 240;
 
@@ -143,7 +144,13 @@ export default function DrawerLeft() {
       <Main open={open}>
         <DrawerHeader />
         <Typography paragraph>
-          paragraph 1
+          <RadioButtonGroup></RadioButtonGroup>
+        </Typography>
+        <Typography paragraph>
+          paragraph 2
+        </Typography>
+        <Typography paragraph>
+          paragraph 2
         </Typography>
         <Typography paragraph>
           paragraph 2
