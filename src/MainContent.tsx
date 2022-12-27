@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
 import SliderGroup from './UIComponents/SliderUI';
+import TableGroup from './UIComponents/TableUI';
 
 
 
@@ -11,7 +12,7 @@ export default function MainContent() {
                 <SliderGroup></SliderGroup>
             </Typography>
             <Typography paragraph>
-                paragraph 2
+                <TableGroup></TableGroup>
             </Typography>
             <Typography paragraph>
                 paragraph 2
