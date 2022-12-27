@@ -19,8 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import LightDarkSwitch from './LightDarkSwitch';
-import RadioButtonGroup from './Radio_button_group';
-
+import MainContent from '../MainContent';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -143,18 +142,7 @@ export default function DrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
-          <RadioButtonGroup></RadioButtonGroup>
-        </Typography>
-        <Typography paragraph>
-          paragraph 2
-        </Typography>
-        <Typography paragraph>
-          paragraph 2
-        </Typography>
-        <Typography paragraph>
-          paragraph 2
-        </Typography>
+        <MainContent></MainContent>
       </Main>
     </Box>
   );

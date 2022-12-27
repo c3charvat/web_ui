@@ -8,7 +8,7 @@ import { deepmerge } from '@mui/utils';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { getDesignTokens, getThemedComponents } from './Theme';
 import { ColorModeContext } from './color-context';
-import DrawerLeft from './Drawer';
+import DrawerLeft from './UIComponents/Drawer';
 
 
 export default function App() {
