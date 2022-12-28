@@ -3,10 +3,10 @@ import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch, { SwitchProps } from '@mui/material/Switch';
-import { ColorModeContext } from '../color-context';
+import { ColorModeContext } from '../contexts/color-context';
 import { useTheme } from '@mui/material/styles';
-import gearimage from "./gearbox.png";
-import liveimage from "./live_signal.png"
+import gearimage from "../img/gearbox.png";
+import liveimage from "../img/live_signal.png"
 
 const RegularSwitch = styled(Switch)(({ theme }) => ({
   width: 62,

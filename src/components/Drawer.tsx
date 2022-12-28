@@ -20,7 +20,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import LightDarkSwitch from './LightDarkSwitch';
 import StyledSwitch from './RegularSwitch';
-import MainContent from '../MainContent';
+import MainContent from './MainContent';
 import { FormGroup,FormControlLabel,Switch } from '@mui/material';
 
 
