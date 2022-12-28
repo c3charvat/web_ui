@@ -40,7 +40,7 @@ export default function SliderGroup() {
             <AccordionDetails>
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={4} lg={4}>
+                        <Grid item xs={12} md={6} lg={6}>
                             <Item>
                                 <Typography sx={{ fontSize: 18 }} align='left' padding={'5px'}>
                                     Stagger Axis
@@ -76,7 +76,7 @@ export default function SliderGroup() {
                                 </CardContent>
                             </Item>
                         </Grid>
-                        <Grid item xs={12} md={4} lg={4}>
+                        <Grid item xs={12} md={6} lg={6}>
                             <Item>
                                 <Typography sx={{ fontSize: 18 }} align='left' padding={'5px'}>
                                     Gap Axis
@@ -112,7 +112,7 @@ export default function SliderGroup() {
                                 </CardContent>
                             </Item>
                         </Grid>
-                        <Grid item xs={12} md={4} lg={4}>
+                        <Grid item xs={12} md={6} lg={6}>
                             <Item>
                                 <Typography sx={{ fontSize: 18 }} padding={'5px'} align='left'>
                                     Angle of Attack (TOP)
@@ -148,7 +148,7 @@ export default function SliderGroup() {
                                 </CardContent>
                             </Item>
                         </Grid>
-                        <Grid item xs={12} md={4} lg={4}>
+                        <Grid item xs={12} md={6} lg={6}>
                             <Item>
                                 <Typography sx={{ fontSize: 18 }} padding={'5px'} align='left'>
                                     Angle of Attack (BOTTOM)
