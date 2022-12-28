@@ -19,7 +19,11 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import LightDarkSwitch from './LightDarkSwitch';
+import StyledSwitch from './RegularSwitch';
 import MainContent from '../MainContent';
+import { FormGroup,FormControlLabel,Switch } from '@mui/material';
+
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -122,7 +126,7 @@ export default function DrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Raw Serial Data','Display Data'].map((text, index) => (
+          {['Raw Serial Data', 'Display Data'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -135,9 +139,12 @@ export default function DrawerLeft() {
         </List>
         <Divider />
         <List>
-            <ListItem disablePadding>
-              <LightDarkSwitch></LightDarkSwitch>
-            </ListItem>
+          <ListItem disablePadding>
+            <StyledSwitch label="Live/Trigger Mode"></StyledSwitch>
+          </ListItem>
+          <ListItem disablePadding>
+            <LightDarkSwitch></LightDarkSwitch>
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open}>
