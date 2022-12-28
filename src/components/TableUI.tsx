@@ -37,13 +37,13 @@ interface Data {
 
 const useFakeMutation = () => {
   return React.useCallback(
-    (data: Partial<Data>) =>
+    (user: Partial<Data>) =>
       new Promise<Partial<Data>>((resolve, reject) =>
         setTimeout(() => {
-          if (data.name?.trim() === '') {
+          if (user.name?.trim() === '') {
             reject();
           } else {
-            resolve(data);
+            resolve(user);
           }
         }, 200),
       ),
@@ -55,8 +55,8 @@ function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
   if (newRow.name !== oldRow.name) {
     return `Name from '${oldRow.name}' to '${newRow.name}'`;
   }
-  if (newRow.postion.x !== oldRow.position.x) {
-    return `Age from '${oldRow.postion.x || ''} ' to '${newRow.position.x || ''} '`;
+  if (newRow.xposition !== oldRow.xposition) {
+    return `Age from '${oldRow.xposition || ''} ' to '${newRow.xposition || ''} '`;
   }
   if (newRow.yposition !== oldRow.yposition) {
     return `Age from '${oldRow.yposition || ''} ' to '${newRow.yposition || ''} '`;
@@ -145,7 +145,6 @@ export default function TableGroup() {
       reject(oldRow);
       setPromiseArguments(null);
     }
-
   };
 
   const handleEntered = () => {
@@ -215,7 +214,7 @@ export default function TableGroup() {
 const columns: GridColumns = [
   { field: 'id', headerName: '#', editable: false },
   { field: 'name', headerName: 'Name', editable: true },
-  { field: 'xposition', headerName: 'Stagger Position', editable: true,valueGetter: (rows) => rows.row.position.x},
+  { field: 'xposition', headerName: 'Stagger Position', editable: true,valueGetter: (rows) => rows.row.position.x },
   { field: 'yposition', headerName: 'Gap Position', editable: true, valueGetter: (rows) => rows.row.position.y },
   { field: 'aoatposition', headerName: 'AOA Top Position', editable: true, valueGetter: (rows) => rows.row.position.aoat },
   { field: 'aoabposition', headerName: 'AOA Bottom Position', editable: true, valueGetter: (rows) => rows.row.position.aoab },
@@ -254,7 +253,7 @@ const rows: GridRowsProp = [
   },
   {
     id: 2,
-    name: "Scenario 2",
+    name: "Scenario 1",
     position: {
       x: 1,
       y: 1,
@@ -275,7 +274,7 @@ const rows: GridRowsProp = [
     },
   }, {
     id: 3,
-    name: `Scenario 3`,
+    name: `Scenario 1`,
     position: {
       x: 1,
       y: 1,
@@ -296,7 +295,7 @@ const rows: GridRowsProp = [
     },
   }, {
     id: 4,
-    name: "Scenario 4",
+    name: "Scenario 1",
     position: {
       x: 1,
       y: 1,
@@ -317,7 +316,7 @@ const rows: GridRowsProp = [
     },
   }, {
     id: 5,
-    name: "Scenario 5",
+    name: "Scenario 1",
     position: {
       x: 1,
       y: 1,
