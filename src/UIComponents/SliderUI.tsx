@@ -7,13 +7,20 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { CardActions, CardContent, Slider, Typography } from '@mui/material';
+import { Button, CardActions, CardContent, Slider, Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     borderstyle: 'solid',
     borderwidth: '5px',
     color: theme.palette.text.secondary,
+}));
+const SendButton = styled(Paper)(({ theme }) => ({
+    textAlign: 'center',
+    borderstyle: 'solid',
+    borderwidth: '5px',
+    color: theme.palette.text.secondary,
+    alignContent: 'end'
 }));
 
 function valuetext(value: number) {
@@ -176,6 +183,13 @@ export default function SliderGroup() {
                                     </Slider>
                                 </CardContent>
                             </Item>
+                        </Grid>
+                        <Grid  item container justifyContent="center">
+                            <SendButton>
+                                    <Button fullWidth variant='contained'>
+                                        Send Data
+                                    </Button>
+                            </SendButton>
                         </Grid>
                     </Grid>
                 </Box>
