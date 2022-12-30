@@ -20,25 +20,28 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { CardActions, CardContent, Slider, Typography } from '@mui/material';
 
-interface Vector {
-  x: number;
-  y: number;
-  aoat: number;
-  aoab: number;
-}
-
-interface Data {
+interface User {
   id: GridRowId;
   name: string;
-  position: Vector;
-  velocity: Vector;
-  acceleration: Vector;
+  xposition: number,
+  yposition: number,
+  aoatposition: number,
+  aoabposition: number,
+  xvelocity: number,
+  yvelocity: number,
+  aoatvelocity: number,
+  aoabvelocity: number,
+  xacceleration: number,
+  yacceleration: number,
+  aoatacceleration: number,
+  aoabacceleration: number,
+
 }
 
 const useFakeMutation = () => {
   return React.useCallback(
-    (user: Partial<Data>) =>
-      new Promise<Partial<Data>>((resolve, reject) =>
+    (user: Partial<User>) =>
+      new Promise<Partial<User>>((resolve, reject) =>
         setTimeout(() => {
           if (user.name?.trim() === '') {
             reject();
@@ -52,49 +55,15 @@ const useFakeMutation = () => {
 };
 
 function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
-  if (newRow.name !== oldRow.name) {
-    return `Name from '${oldRow.name}' to '${newRow.name}'`;
-  }
-  if (newRow.xposition !== oldRow.xposition) {
-    return `Age from '${oldRow.xposition || ''} ' to '${newRow.xposition || ''} '`;
-  }
-  if (newRow.yposition !== oldRow.yposition) {
-    return `Age from '${oldRow.yposition || ''} ' to '${newRow.yposition || ''} '`;
-  }
-  if (newRow.aoatposition !== oldRow.aoatposition) {
-    return `Age from '${oldRow.aoatposition || ''} ' to '${newRow.aoatposition || ''} '`;
-  }
-  if (newRow.aoabposition !== oldRow.aoabposition) {
-    return `Age from '${oldRow.aoabposition || ''} ' to '${newRow.aoabposition || ''} '`;
-  }
-  if (newRow.xvelocity !== oldRow.xvelocity) {
-    return `Age from '${oldRow.xvelocity || ''} ' to '${newRow.xvelocity || ''} '`;
-  }
-  if (newRow.yvelocity !== oldRow.yvelocity) {
-    return `Age from '${oldRow.yvelocity || ''} ' to '${newRow.yvelocity || ''} '`;
-  }
-  if (newRow.aoatvelocity !== oldRow.aoatvelocity) {
-    return `Age from '${oldRow.aoatvelocity || ''} ' to '${newRow.aoatvelocity || ''} '`;
-  }
-  if (newRow.aoabvelocity !== oldRow.aoabvelocity) {
-    return `Age from '${oldRow.aoabvelocity || ''} ' to '${newRow.aoabvelocity || ''} '`;
-  }
-  if (newRow.xacceleration !== oldRow.xacceleration) {
-    return `Age from '${oldRow.xacceleration || ''} ' to '${newRow.xacceleration || ''} '`;
-  }
-  if (newRow.yacceleration !== oldRow.yacceleration) {
-    return `Age from '${oldRow.yacceleration || ''} ' to '${newRow.yacceleration || ''} '`;
-  }
-  if (newRow.aoatacceleration !== oldRow.aoatacceleration) {
-    return `Age from '${oldRow.aoatacceleration || ''} ' to '${newRow.aoatacceleration || ''} '`;
-  }
-  if (newRow.aoabacceleration !== oldRow.aoabacceleration) {
-    return `Age from '${oldRow.aoabacceleration || ''} ' to '${newRow.aoabacceleration || ''} '`;
-  }
 
-
-  return null;
-
+  for (let x in newRow){
+    console.log(x);
+    if (newRow[x] !== oldRow[x]){
+      return `the value from ${oldRow[x]}' to '${newRow[x]}'`;
+    }
+  }
+return null;
+  
 }
 
 
@@ -214,126 +183,99 @@ export default function TableGroup() {
 const columns: GridColumns = [
   { field: 'id', headerName: '#', editable: false },
   { field: 'name', headerName: 'Name', editable: true },
-  { field: 'xposition', headerName: 'Stagger Position', editable: true,valueGetter: (rows) => rows.row.position.x },
-  { field: 'yposition', headerName: 'Gap Position', editable: true, valueGetter: (rows) => rows.row.position.y },
-  { field: 'aoatposition', headerName: 'AOA Top Position', editable: true, valueGetter: (rows) => rows.row.position.aoat },
-  { field: 'aoabposition', headerName: 'AOA Bottom Position', editable: true, valueGetter: (rows) => rows.row.position.aoab },
-  { field: 'xvelocity', headerName: 'Stagger Velocity', editable: true, valueGetter: (rows) => rows.row.velocity.x },
-  { field: 'yvelocity', headerName: 'Gap Velocity', editable: true, valueGetter: (rows) => rows.row.velocity.y },
-  { field: 'aoatvelocity', headerName: 'AOA Top Velocity', editable: true, valueGetter: (rows) => rows.row.velocity.aoat },
-  { field: 'aoabvelocity', headerName: 'AOA Bottom Velocity', editable: true, valueGetter: (rows) => rows.row.velocity.aoab },
-  { field: 'xacceleration', headerName: 'Stagger Acceleration', editable: true, valueGetter: (rows) => rows.row.acceleration.x },
-  { field: 'yacceleration', headerName: 'Gap Acceleration', editable: true, valueGetter: (rows) => rows.row.acceleration.y },
-  { field: 'aoatacceleration', headerName: 'AOA Top Acceleration', editable: true, valueGetter: (rows) => rows.row.acceleration.aoat },
-  { field: 'aoabacceleration', headerName: 'AOA Bottom Acceleration', editable: true, valueGetter: (rows) => rows.row.acceleration.aoab },
+  { field: 'xposition', headerName: 'Stagger Position', editable: true },
+  { field: 'yposition', headerName: 'Gap Position', editable: true },
+  { field: 'aoatposition', headerName: 'AOA Top Position', editable: true },
+  { field: 'aoabposition', headerName: 'AOA Bottom Position', editable: true },
+  { field: 'xvelocity', headerName: 'Stagger Velocity', editable: true },
+  { field: 'yvelocity', headerName: 'Gap Velocity', editable: true },
+  { field: 'aoatvelocity', headerName: 'AOA Top Velocity', editable: true },
+  { field: 'aoabvelocity', headerName: 'AOA Bottom Velocity', editable: true },
+  { field: 'xacceleration', headerName: 'Stagger Acceleration', editable: true },
+  { field: 'yacceleration', headerName: 'Gap Acceleration', editable: true },
+  { field: 'aoatacceleration', headerName: 'AOA Top Acceleration', editable: true },
+  { field: 'aoabacceleration', headerName: 'AOA Bottom Acceleration', editable: true },
 ];
 
 const rows: GridRowsProp = [
   {
     id: 1,
-    name: "Scenario 1",
-    position: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    velocity: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    acceleration: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
+    name: 'Scenario 1',
+    xposition: 25,
+    yposition: 25,
+    aoatposition: 5,
+    aoabposition: 5,
+    xvelocity: 100,
+    yvelocity: 100,
+    aoatvelocity: 100,
+    aoabvelocity: 100,
+    xacceleration: 10,
+    yacceleration: 10,
+    aoatacceleration: 10,
+    aoabacceleration: 10,
   },
   {
     id: 2,
-    name: "Scenario 1",
-    position: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    velocity: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    acceleration: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-  }, {
+    name: 'Scenario 2',
+    xposition: 25,
+    yposition: 25,
+    aoatposition: 5,
+    aoabposition: 5,
+    xvelocity: 100,
+    yvelocity: 100,
+    aoatvelocity: 100,
+    aoabvelocity: 100,
+    xacceleration: 10,
+    yacceleration: 10,
+    aoatacceleration: 10,
+    aoabacceleration: 10,
+  },
+  {
     id: 3,
-    name: `Scenario 1`,
-    position: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    velocity: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    acceleration: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-  }, {
+    name: 'Scenario 3',
+    xposition: 25,
+    yposition: 25,
+    aoatposition: 5,
+    aoabposition: 5,
+    xvelocity: 100,
+    yvelocity: 100,
+    aoatvelocity: 100,
+    aoabvelocity: 100,
+    xacceleration: 10,
+    yacceleration: 10,
+    aoatacceleration: 10,
+    aoabacceleration: 10,
+  },
+  {
     id: 4,
-    name: "Scenario 1",
-    position: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    velocity: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    acceleration: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-  }, {
+    name: 'Scenario 4',
+    xposition: 25,
+    yposition: 25,
+    aoatposition: 5,
+    aoabposition: 5,
+    xvelocity: 100,
+    yvelocity: 100,
+    aoatvelocity: 100,
+    aoabvelocity: 100,
+    xacceleration: 10,
+    yacceleration: 10,
+    aoatacceleration: 10,
+    aoabacceleration: 10,
+  },
+  {
     id: 5,
-    name: "Scenario 1",
-    position: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    velocity: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
-    acceleration: {
-      x: 1,
-      y: 1,
-      aoat: 1,
-      aoab: 1,
-    },
+    name: 'Scenario 5',
+    xposition: 25,
+    yposition: 25,
+    aoatposition: 5,
+    aoabposition: 5,
+    xvelocity: 100,
+    yvelocity: 100,
+    aoatvelocity: 100,
+    aoabvelocity: 100,
+    xacceleration: 10,
+    yacceleration: 10,
+    aoatacceleration: 10,
+    aoabacceleration: 10,
   },
 ];
