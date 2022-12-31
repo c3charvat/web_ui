@@ -7,7 +7,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Button, CardActions, CardContent, Slider, Typography } from '@mui/material';
+import { Button, CardContent, Slider, Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
@@ -184,13 +184,13 @@ export default function SliderGroup() {
                                 </CardContent>
                             </Item>
                         </Grid>
-                        <Grid  item container justifyContent="center">
-                            <SendButton>
-                                    <Button fullWidth variant='contained'>
-                                        Send Data
-                                    </Button>
-                            </SendButton>
-                        </Grid>
+                    </Grid>
+                    <Grid padding={1} height={40} justifyContent="center">
+                        <SendButton>
+                            <Button fullWidth variant='contained'>
+                                Send Data
+                            </Button>
+                        </SendButton>
                     </Grid>
                 </Box>
             </AccordionDetails>
