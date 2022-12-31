@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Typography } from '@mui/material';
 import SliderGroup from './SliderUI';
 import TableGroup from './TableUI';
+import ConsoleGroup from './ConsoleUI';
 
 
 
@@ -15,7 +16,7 @@ export default function MainContent() {
                 <TableGroup></TableGroup>
             </Typography>
             <Typography paragraph>
-                paragraph 2
+                <ConsoleGroup></ConsoleGroup>
             </Typography>
             <Typography paragraph>
                 paragraph 2
