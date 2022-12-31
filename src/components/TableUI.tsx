@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import {
   DataGrid,
   GridRowModel,
@@ -7,6 +6,7 @@ import {
   GridRowId,
   GridRowsProp,
 } from '@mui/x-data-grid';
+import { styled } from '@mui/material/styles';
 import Snackbar from '@mui/material/Snackbar';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -18,7 +18,15 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { CardActions, CardContent, Slider, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
+
+const SendButton = styled(Paper)(({ theme }) => ({
+  textAlign: 'center',
+  borderstyle: 'solid',
+  borderwidth: '5px',
+  color: theme.palette.text.secondary,
+  alignContent: 'end'
+}));
 
 interface User {
   id: GridRowId;
@@ -56,14 +64,14 @@ const useFakeMutation = () => {
 
 function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
 
-  for (let x in newRow){
+  for (let x in newRow) {
     console.log(x);
-    if (newRow[x] !== oldRow[x]){
+    if (newRow[x] !== oldRow[x]) {
       return `the value from ${oldRow[x]}' to '${newRow[x]}'`;
     }
   }
-return null;
-  
+  return null;
+
 }
 
 
@@ -164,6 +172,7 @@ export default function TableGroup() {
           <DataGrid
             rows={rows}
             columns={columns}
+            checkboxSelection={true}
             processRowUpdate={processRowUpdate}
             experimentalFeatures={{ newEditingApi: true }}
           />
@@ -173,7 +182,13 @@ export default function TableGroup() {
             </Snackbar>
           )}
         </div>
-
+        <Grid justifyContent="center" padding={1} height={40}>
+          <SendButton>
+            <Button fullWidth variant='contained'>
+              Send Data
+            </Button>
+          </SendButton>
+        </Grid>
       </AccordionDetails>
     </Accordion>
   );
