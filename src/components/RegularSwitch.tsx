@@ -2,11 +2,11 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch, { SwitchProps } from '@mui/material/Switch';
+import Switch from '@mui/material/Switch';
 import { ColorModeContext } from '../contexts/color-context';
 import { useTheme } from '@mui/material/styles';
-import gearimage from "../img/gearbox.png";
-import liveimage from "../img/live_signal.png"
+import liveimage from "../img/send.png";
+import sendimage from "../img/live.png"
 
 const RegularSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -20,7 +20,7 @@ const RegularSwitch = styled(Switch)(({ theme }) => ({
       color: '#fff',
       transform: 'translateX(22px)',
       '& .MuiSwitch-thumb:before': {
-        backgroundImage: `url(${gearimage})`,
+        backgroundImage: `url(${liveimage})`,
       },
       '& + .MuiSwitch-track': {
         opacity: 1,
@@ -41,7 +41,7 @@ const RegularSwitch = styled(Switch)(({ theme }) => ({
       top: 0,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      backgroundImage: `url(${liveimage})`
+      backgroundImage: `url(${sendimage})`
     },
   },
   '& .MuiSwitch-track': {
