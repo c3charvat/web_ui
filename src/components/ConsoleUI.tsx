@@ -21,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const StyledAutoScrollingTextArea = styled(AutoScrollingTextArea)(({ theme }) => ({
     textAlign: 'left',
-    borderWidth: 0,
+    borderWidth: '1px',
     color: theme.palette.text.secondary,
     backgroundColor: theme.palette.background.default,
     alignContent: 'end',
@@ -57,10 +57,10 @@ export default function ConsoleGroup() {
 
 function SendCommandGroup() {
     return (
-        <Box sx={{ flexGrow: 1, marginBottom: '5px', marginLeft: 2 }}>
+        <Box sx={{ flexGrow: 1, paddingTop:'10px', marginBottom: '5px', marginLeft: 2 }}>
             <Grid container spacing={2}>
                 <Grid xs={12} md={10} lg={10}>
-                    <TextField label="Filled" fullWidth ></TextField>
+                    <TextField label="Type Command Here" fullWidth ></TextField>
                 </Grid>
                 <Grid xs={12} md={2} lg={2}>
                     <Button sx={{ height: '56px' }} fullWidth variant="contained" >Send</Button>
@@ -75,7 +75,7 @@ function ConsoleButtonGroup() {
      <Box sx={{ flexGrow: 1, marginTop: '20px', marginLeft: 2 }}>
             <Grid container spacing={2}>
                 <Grid xs={12} md={10} lg={10}>
-                    <TextField label="Filled" fullWidth ></TextField>
+                    <TextField label="Type Command Here" fullWidth ></TextField>
                 </Grid>
                 <Grid xs={12} md={2} lg={2}>
                     <Button sx={{ height: '56px' }} fullWidth variant="contained" >Send</Button>
