@@ -5,13 +5,10 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Button, Box, TextField, Typography, Grid } from '@mui/material';
+import { Button, Box, TextField, Typography, Grid, Checkbox} from '@mui/material';
 import { AutoScrollingTextArea } from './AutoScrollingTextarea';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
 
 const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
@@ -57,7 +54,7 @@ export default function ConsoleGroup() {
 
 function SendCommandGroup() {
     return (
-        <Box sx={{ flexGrow: 1, paddingTop:'10px', marginBottom: '5px', marginLeft: 2 }}>
+        <Box sx={{ flexGrow: 1, paddingTop: '10px', marginBottom: '5px', marginLeft: 2 }}>
             <Grid container spacing={2}>
                 <Grid xs={12} md={10} lg={10}>
                     <TextField label="Type Command Here" fullWidth ></TextField>
@@ -72,13 +69,17 @@ function SendCommandGroup() {
 
 function ConsoleButtonGroup() {
     return (
-     <Box sx={{ flexGrow: 1, marginTop: '20px', marginLeft: 2 }}>
+        <Box sx={{ flexGrow: 1, marginTop: '20px', marginLeft: 2 }}>
             <Grid container spacing={2}>
-                <Grid xs={12} md={10} lg={10}>
-                    <TextField label="Type Command Here" fullWidth ></TextField>
+                <Grid xs={12} md={10} lg={10 }>
+                    <FormGroup sx={{paddingTop: '10px', justifyContent: 'space-evenly'}} row>
+                        <FormControlLabel control={<Checkbox defaultChecked />} label="Auto Scroll" />
+                        <FormControlLabel control={<Checkbox />} label="Show TimeStamp" />
+                        <FormControlLabel control={<Checkbox />} label="Show Sent Data" />
+                    </FormGroup>
                 </Grid>
                 <Grid xs={12} md={2} lg={2}>
-                    <Button sx={{ height: '56px' }} fullWidth variant="contained" >Send</Button>
+                    <Button sx={{ height: '56px' }} fullWidth variant="contained" >Clear Output</Button>
                 </Grid>
             </Grid>
         </Box>
