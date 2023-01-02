@@ -18,8 +18,17 @@ export default function MainContent() {
             <Typography paragraph>
                 <ConsoleGroup></ConsoleGroup>
             </Typography>
-            <Typography paragraph>
-                paragraph 2
+            <Typography align='center' fontSize={15}>
+                Dual AirFoil Control Ⓒ2023 Collin Charvat
+            </Typography>
+            <Typography align='center' fontSize={15}>
+                Dual Airfoil Team: Jack, Kykle, and Logan
+            </Typography>
+            <Typography align='center' fontSize={15}>
+            Acknowledgements: Daniel A. and Kyle R.
+            </Typography>
+            <Typography align='center' fontSize={15}>
+                For their endless support 
             </Typography>
         </React.Fragment>
 
