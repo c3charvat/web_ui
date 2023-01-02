@@ -19,16 +19,13 @@ export default function MainContent() {
                 <ConsoleGroup></ConsoleGroup>
             </Typography>
             <Typography align='center' fontSize={15}>
-                Dual AirFoil Control Ⓒ2023 Collin Charvat
+                Dual Airfoil Control Ⓒ2022-2023 Collin Charvat and Wright State University.
             </Typography>
             <Typography align='center' fontSize={15}>
-                Dual Airfoil Team: Jack, Kykle, and Logan
+                Dual Airfoil Team: Jack, Kykle, Logan and Dr.Yang.
             </Typography>
             <Typography align='center' fontSize={15}>
-            Acknowledgements: Daniel A. and Kyle R.
-            </Typography>
-            <Typography align='center' fontSize={15}>
-                For their endless support 
+            Acknowledgements: Daniel A. and Kyle R. for their endless support.
             </Typography>
         </React.Fragment>
 
