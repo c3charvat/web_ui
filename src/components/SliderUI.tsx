@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import useWebSocket from 'react-use-websocket';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box';
@@ -28,6 +29,17 @@ function valuetext(value: number) {
 }
 
 export default function SliderGroup() {
+    const [socketUrl, setSocketUrl] = useState('wss://echo.websocket.org');
+    const [xSliderValue, setXSliderValue] = useState<number>(0);
+   
+
+    const xSliderChange=(
+    event: Event,
+    value: number | number[],
+    ) => {
+        setXSliderValue(value as number)
+    }
+
     return (
         <Accordion>
             <AccordionSummary
@@ -53,6 +65,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        onChange={xSliderChange}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
