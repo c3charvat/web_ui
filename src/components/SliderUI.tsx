@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import useWebSocket from 'react-use-websocket';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box';
@@ -8,7 +7,9 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { Button, CardContent, Slider, Typography } from '@mui/material';
+import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
@@ -29,16 +30,72 @@ function valuetext(value: number) {
 }
 
 export default function SliderGroup() {
-    const [socketUrl, setSocketUrl] = useState('wss://echo.websocket.org');
-    const [xSliderValue, setXSliderValue] = useState<number>(0);
-   
+    const [socketUrl, setSocketUrl] = useState('wss://192.168.1.2');
+    
+    const { sendJsonMessage, lastMessage, readyState } = useWebSocket(socketUrl);
 
-    const xSliderChange=(
-    event: Event,
-    value: number | number[],
-    ) => {
-        setXSliderValue(value as number)
-    }
+    const connectionStatus = {
+        [ReadyState.CONNECTING]: 'Connecting',
+        [ReadyState.OPEN]: 'Open',
+        [ReadyState.CLOSING]: 'Closing',
+        [ReadyState.CLOSED]: 'Closed',
+        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+      }[readyState];
+
+      useEffect(() => {
+		if (readyState === ReadyState.OPEN) {
+			sendJsonMessage({
+				type: "SliderMessage",
+                sliderValues: sliderState,
+                //sendDataButton: *data* ,
+			});
+            console.log(sendJsonMessage({
+				type: "SliderMessage",
+                sliderValues: sliderState,
+                //sendDataButton: *data* ,
+			}))
+		}
+	}, [readyState]);
+
+    type SliderState = {
+        staggerPositionSlider: number;
+        gapPositionSlider: number;
+        aoatPositionSlider: number;
+        aoabPositionSlider: number;
+        staggerVelocitySlider: number;
+        gapVelocitySlider: number;
+        aoatVelocitySlider: number;
+        aoabVelocitySlider: number;
+        staggerAccelerationSlider: number;
+        gapAccelerationSlider: number;
+        aoatAccelerationSlider: number;
+        aoabAccelerationSlider: number;
+      };
+      
+      const [sliderState, setSliderState] = useState({
+        staggerPositionSlider: 0,
+        gapPositionSlider: 0,
+        aoatPositionSlider: 0,
+        aoabPositionSlider: 0,
+        staggerVelocitySlider: 0,
+        gapVelocitySlider: 0,
+        aoatVelocitySlider: 0,
+        aoabVelocitySlider: 0,
+        staggerAccelerationSlider: 0,
+        gapAccelerationSlider: 0,
+        aoatAccelerationSlider: 0,
+        aoabAccelerationSlider: 0,
+      });
+      
+      const sliderProps = (slider: keyof SliderState) => {
+        return {
+          onChange: (e:any) => setSliderState(current => ({
+            ...current,
+            [slider]: e.target.value
+          })),
+          value: sliderState[slider]
+        };
+      }
 
     return (
         <Accordion>
@@ -65,7 +122,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
-                                        onChange={xSliderChange}
+                                        {...sliderProps("staggerPositionSlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -75,6 +132,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("staggerVelocitySlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -84,6 +142,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("staggerAccelerationSlider")}
                                     >
                                     </Slider>
                                 </CardContent>
@@ -102,6 +161,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("gapPositionSlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -111,6 +171,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("gapVelocitySlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -120,6 +181,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("gapAccelerationSlider")}
                                     >
                                     </Slider>
                                 </CardContent>
@@ -138,6 +200,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("aoatPositionSlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -147,6 +210,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("aoatVelocitySlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -156,6 +220,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("aoatAccelerationSlider")}
                                     >
                                     </Slider>
                                 </CardContent>
@@ -174,6 +239,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("aoabPositionSlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -183,6 +249,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("aoabVelocitySlider")}
                                     >
                                     </Slider>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
@@ -192,6 +259,7 @@ export default function SliderGroup() {
                                         track={false}
                                         getAriaValueText={valuetext}
                                         valueLabelDisplay="auto"
+                                        {...sliderProps("aoabAccelerationSlider")}
                                     >
                                     </Slider>
                                 </CardContent>
