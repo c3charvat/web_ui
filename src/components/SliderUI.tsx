@@ -30,33 +30,9 @@ function valuetext(value: number) {
 }
 
 export default function SliderGroup() {
-    const [socketUrl, setSocketUrl] = useState('wss://192.168.1.2');
+    const [socketUrl, setSocketUrl] = useState('ws://localhost:10000');
     
     const { sendJsonMessage, lastMessage, readyState } = useWebSocket(socketUrl);
-
-    const connectionStatus = {
-        [ReadyState.CONNECTING]: 'Connecting',
-        [ReadyState.OPEN]: 'Open',
-        [ReadyState.CLOSING]: 'Closing',
-        [ReadyState.CLOSED]: 'Closed',
-        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-      }[readyState];
-
-      useEffect(() => {
-		if (readyState === ReadyState.OPEN) {
-			sendJsonMessage({
-				type: "SliderMessage",
-                sliderValues: sliderState,
-                //sendDataButton: *data* ,
-			});
-            console.log(sendJsonMessage({
-				type: "SliderMessage",
-                sliderValues: sliderState,
-                //sendDataButton: *data* ,
-			}))
-		}
-	}, [readyState]);
-
     type SliderState = {
         staggerPositionSlider: number;
         gapPositionSlider: number;
@@ -86,14 +62,37 @@ export default function SliderGroup() {
         aoatAccelerationSlider: 0,
         aoabAccelerationSlider: 0,
       });
+    const connectionStatus = {
+        [ReadyState.CONNECTING]: 'Connecting',
+        [ReadyState.OPEN]: 'Open',
+        [ReadyState.CLOSING]: 'Closing',
+        [ReadyState.CLOSED]: 'Closed',
+        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+      }[readyState];
+
+      useEffect(() => {
+			sendJsonMessage({
+				type: "SliderMessage",
+                sliderValues: sliderState,
+                //sendDataButton: *data* ,
+			});
+            // console.log({
+			// 	type: "SliderMessage",
+            //     sliderValues: sliderState,
+            //     //sendDataButton: *data* ,
+			// })
+		},[sliderState]
+	);
+
+    
       
       const sliderProps = (slider: keyof SliderState) => {
         return {
-          onChange: (e:any) => setSliderState(current => ({
+          onChange: (event: Event, value: number | Array<number>, activeThumb: number) => setSliderState(current => ({
             ...current,
-            [slider]: e.target.value
+            [slider]: value
           })),
-          value: sliderState[slider]
+          value:sliderState[slider]
         };
       }
 
