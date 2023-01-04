@@ -31,7 +31,7 @@ function valuetext(value: number) {
 
 export default function SliderGroup() {
     const [socketUrl, setSocketUrl] = useState('ws://localhost:10000');
-    
+
     const { sendJsonMessage, lastMessage, readyState } = useWebSocket(socketUrl);
     type SliderState = {
         staggerPositionSlider: number;
@@ -46,9 +46,9 @@ export default function SliderGroup() {
         gapAccelerationSlider: number;
         aoatAccelerationSlider: number;
         aoabAccelerationSlider: number;
-      };
-      
-      const [sliderState, setSliderState] = useState({
+    };
+
+    const [sliderState, setSliderState] = useState({
         staggerPositionSlider: 0,
         gapPositionSlider: 0,
         aoatPositionSlider: 0,
@@ -61,40 +61,49 @@ export default function SliderGroup() {
         gapAccelerationSlider: 0,
         aoatAccelerationSlider: 0,
         aoabAccelerationSlider: 0,
-      });
+    });
+
+    const [sendButtonState, setSendButtonState] = useState('false');
+
     const connectionStatus = {
         [ReadyState.CONNECTING]: 'Connecting',
         [ReadyState.OPEN]: 'Open',
         [ReadyState.CLOSING]: 'Closing',
         [ReadyState.CLOSED]: 'Closed',
         [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-      }[readyState];
+    }[readyState];
 
-      useEffect(() => {
-			sendJsonMessage({
-				type: "SliderMessage",
-                sliderValues: sliderState,
-                //sendDataButton: *data* ,
-			});
-            // console.log({
-			// 	type: "SliderMessage",
-            //     sliderValues: sliderState,
-            //     //sendDataButton: *data* ,
-			// })
-		},[sliderState]
-	);
+    useEffect(() => {
+        sendJsonMessage({
+            type: "SliderMessage",
+            sliderValues: sliderState,
+            sendDataButton: sendButtonState,
+        });
+        console.log(sendButtonState)
+        if(sendButtonState === 'true'){
+            setSendButtonState('false')
+            console.log("switched")
+            console.log(sendButtonState)
+        }
+        // console.log({
+        // 	type: "SliderMessage",
+        //     sliderValues: sliderState,
+        //     //sendDataButton: *data* ,
+        // })
+    }, [sliderState,sendButtonState]
+    );
 
-    
-      
-      const sliderProps = (slider: keyof SliderState) => {
+
+
+    const sliderProps = (slider: keyof SliderState) => {
         return {
-          onChange: (event: Event, value: number | Array<number>, activeThumb: number) => setSliderState(current => ({
-            ...current,
-            [slider]: value
-          })),
-          value:sliderState[slider]
+            onChange: (event: Event, value: number | Array<number>, activeThumb: number) => setSliderState(current => ({
+                ...current,
+                [slider]: value
+            })),
+            value: sliderState[slider]
         };
-      }
+    }
 
     return (
         <Accordion>
@@ -267,7 +276,7 @@ export default function SliderGroup() {
                     </Grid>
                     <Grid padding={1} height={40} justifyContent="center">
                         <SendButton>
-                            <Button fullWidth variant='contained'>
+                            <Button fullWidth variant='contained' onClick={()=> setSendButtonState('true')}>
                                 Send Data
                             </Button>
                         </SendButton>
