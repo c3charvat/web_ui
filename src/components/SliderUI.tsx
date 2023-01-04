@@ -7,7 +7,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { Button, CardContent, Slider, Typography } from '@mui/material';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 
@@ -32,7 +31,7 @@ function valuetext(value: number) {
 export default function SliderGroup() {
     const [socketUrl, setSocketUrl] = useState('ws://localhost:10000');
 
-    const { sendJsonMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+    const { sendJsonMessage, lastMessage, readyState } = useWebSocket(socketUrl,{share:true}); // share allows the websocket to be shared between components 
     type SliderState = {
         staggerPositionSlider: number;
         gapPositionSlider: number;
@@ -79,11 +78,8 @@ export default function SliderGroup() {
             sliderValues: sliderState,
             sendDataButton: sendButtonState,
         });
-        console.log(sendButtonState)
         if(sendButtonState === 'true'){
-            setSendButtonState('false')
-            console.log("switched")
-            console.log(sendButtonState)
+            setSendButtonState('false') // this will cause this to get sent twice since we are updating the state in here but since we sent false the second time it doesnt matter
         }
         // console.log({
         // 	type: "SliderMessage",
