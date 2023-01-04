@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -21,8 +21,6 @@ import MailIcon from '@mui/icons-material/Mail';
 import LightDarkSwitch from './LightDarkSwitch';
 import StyledSwitch from './RegularSwitch';
 import MainContent from './MainContent';
-import { FormGroup,FormControlLabel,Switch } from '@mui/material';
-
 
 const drawerWidth = 240;
 
@@ -77,7 +75,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function DrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,7 +85,6 @@ export default function DrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />

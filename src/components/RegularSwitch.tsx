@@ -1,12 +1,9 @@
-import * as React from 'react';
+import React, { useState, useEffect} from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { ColorModeContext } from '../contexts/color-context';
-import { useTheme } from '@mui/material/styles';
-import liveimage from "../img/send.png";
-import sendimage from "../img/live.png"
+import useWebSocket from 'react-use-websocket';
 
 const RegularSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -58,12 +55,27 @@ const RegularSwitch = styled(Switch)(({ theme }) => ({
 
 
 export default function StyledSwitch(props:any) {
-  const theme = useTheme();
-  const colorMode = React.useContext(ColorModeContext);
+  const [socketUrl] = useState('ws://localhost:10000');
+  const { sendJsonMessage} = useWebSocket(socketUrl, { share: true }); // share allows the websocket to be shared between components
+  const [liveModeState, setLiveModeState] = useState('true');
+  
+  
+  useEffect(() => {
+    sendJsonMessage({
+        type: "SwitchMessage",
+        liveModeSwitch: liveModeState,
+    });
+}, [liveModeState]
+);
+
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setLiveModeState(liveModeState==='true' ? 'false' : 'true')
+};
+
   return (
     <FormGroup>
     <FormControlLabel control={<RegularSwitch sx={{ m: 1 }}
-        defaultChecked />} label={props.label} />
+        defaultChecked onChange={handleChange}/>} label={props.label}/> 
   </FormGroup>
   );
 }

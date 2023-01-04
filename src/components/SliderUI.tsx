@@ -86,7 +86,7 @@ export default function SliderGroup() {
         //     sliderValues: sliderState,
         //     //sendDataButton: *data* ,
         // })
-    }, [sliderState,sendButtonState]
+    }, [sliderState,sendButtonState] // only run when one of these is updated
     );
 
 
