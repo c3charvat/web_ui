@@ -72,7 +72,7 @@ function ConsoleButtonGroup() {
         <Box sx={{ flexGrow: 1, marginTop: '20px', marginLeft: 2 }}>
             <Grid container spacing={2}>
                 <Grid xs={12} md={10} lg={10 }>
-                    <FormGroup sx={{paddingTop: '10px', justifyContent: 'space-evenly'}} row>
+                    <FormGroup sx={{paddingTop: '10px', justifyContent: 'flex-start'}} row>
                         <FormControlLabel control={<Checkbox defaultChecked />} label="Auto Scroll" />
                         <FormControlLabel control={<Checkbox />} label="Show TimeStamp" />
                         <FormControlLabel control={<Checkbox />} label="Show Sent Data" />
