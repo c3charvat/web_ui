@@ -15,6 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
     borderstyle: 'solid',
     borderwidth: '5px',
     color: theme.palette.text.secondary,
+    marginBottom: '0px'
 }));
 const SendButton = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
@@ -111,14 +112,13 @@ export default function SliderGroup() {
                 <Typography>Adjustment Sliders </Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={1}>
                         <Grid item xs={12} md={6} lg={6}>
                             <Item>
                                 <Typography sx={{ fontSize: 18 }} align='left' padding={'5px'}>
                                     Stagger Axis
                                 </Typography>
-                                <CardContent>
+                                <CardContent sx={{marginBottom:'0'}}>
                                     <Typography sx={{ fontSize: 14 }} align='left'>
                                         Position (mm)
                                     </Typography>
@@ -277,7 +277,6 @@ export default function SliderGroup() {
                             </Button>
                         </SendButton>
                     </Grid>
-                </Box>
             </AccordionDetails>
         </Accordion>
     );
