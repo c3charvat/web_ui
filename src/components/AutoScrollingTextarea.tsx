@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 
 
 export const AutoScrollingTextArea: React.FC<
-  React.TextareaHTMLAttributes<HTMLTextAreaElement> & { autoScroll?: boolean }
+  React.TextareaHTMLAttributes<HTMLTextAreaElement> & { autoScroll?: boolean , readOnly?:boolean}
 > = (props) => {
   const element = React.useRef<HTMLTextAreaElement>(null);
 

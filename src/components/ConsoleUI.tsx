@@ -45,7 +45,7 @@ export default function ConsoleGroup() {
             </AccordionSummary>
             <AccordionDetails>
                 <SendCommandGroup></SendCommandGroup>
-                <StyledAutoScrollingTextArea>hello</StyledAutoScrollingTextArea>
+                <StyledAutoScrollingTextArea autoScroll={true} readOnly={true}>hello</StyledAutoScrollingTextArea>
                 <ConsoleButtonGroup></ConsoleButtonGroup>
             </AccordionDetails>
         </Accordion>
