@@ -1,5 +1,5 @@
 import React from "react";
-import {atom, useRecoilState} from 'recoil';
+import {RecoilRoot} from 'recoil';
 import {
   ThemeProvider,
   createTheme,
@@ -39,7 +39,9 @@ export default function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
+        <RecoilRoot>
         <DrawerLeft></DrawerLeft>
+        </RecoilRoot>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
