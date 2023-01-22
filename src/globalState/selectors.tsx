@@ -1,6 +1,5 @@
 import { selectorFamily, selector } from "recoil";
-import { serialConsoleList } from "./atoms";
-import { send } from "websocket";
+import { serialConsoleListState } from "./atoms";
 
 
 // ~~~~~~~~~~~~~~~~~ commented Atoms for easy refrence 
