@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
-import SliderGroup from './SliderUI';
 import SliderGroupV2 from './SliderV2';
 import TableGroup from './TableUI';
 import ConsoleGroup from './ConsoleUI';
