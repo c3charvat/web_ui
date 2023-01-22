@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import useWebSocket from 'react-use-websocket';
+import { liveModeSwitchState } from '../globalState/atoms';
 
 const RegularSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -57,7 +59,7 @@ const RegularSwitch = styled(Switch)(({ theme }) => ({
 export default function StyledSwitch(props: any) {
   const [socketUrl] = useState('ws://localhost:10000');
   const { sendJsonMessage } = useWebSocket(socketUrl, { share: true }); // share allows the websocket to be shared between components
-  const [liveModeState, setLiveModeState] = useState('true');
+  const [liveModeState, setLiveModeState] = useRecoilState(liveModeSwitchState);
 
 
   useEffect(() => {

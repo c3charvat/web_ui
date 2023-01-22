@@ -11,32 +11,61 @@ import { Button, CardContent, Slider, Theme, Typography } from '@mui/material';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { Resizable } from "re-resizable";
 import { useTheme } from '@mui/material/styles';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { axisDataState, liveModeSwitchState, sendButtonRenderState } from '../globalState/atoms';
 
 
 
-function style (theme: Theme){
+function style(theme: Theme) {
     const styled1 = {
-    backgroundColor:theme.palette.background.default,
-    Display: "flex",
-    FlexDirection: 'row',
-    FlexWrap: 'wrap',
-    alignItems: "center",
-    justifyContent: "flex-start",
-    border: "solid 1px #ddd",
-    margin: '5px',
-    padding: '10px',
-    //whiteSpace: 'pre'
+        backgroundColor: theme.palette.background.default,
+        Display: "flex",
+        FlexDirection: 'row',
+        FlexWrap: 'wrap',
+        alignItems: "center",
+        justifyContent: "flex-start",
+        border: "solid 1px #ddd",
+        margin: '5px',
+        padding: '10px',
+        //whiteSpace: 'pre'
     }
     return styled1;
 };
 
-const Item = styled(Paper)(({ theme }) => ({
-    flexShrink: '1'
+const SendButton = styled(Paper)(({ theme }) => ({
+    textAlign: 'center',
+    borderstyle: 'solid',
+    borderwidth: '5px',
+    color: theme.palette.text.secondary,
+    alignContent: 'end'
 }));
 
 function valuetext(value: number) {
     return `${value}`;
 }
+
+function SendButtonRender() {
+    const livemodeSwitchState = useRecoilValue(liveModeSwitchState);
+    const setSendButtonState = useSetRecoilState(sendButtonRenderState);
+    if (livemodeSwitchState == 'false') { // ie its not in trigger mode
+        return (
+            <Grid padding={1} height={40} justifyContent="center">
+                <SendButton>
+                    <Button fullWidth variant='contained' onClick={() => setSendButtonState('true')}>
+                        Send Data
+                    </Button>
+                </SendButton>
+            </Grid>
+        )
+    }
+    else {
+        return (<div></div>)
+    }
+
+
+}
+
+
 
 export default function SliderGroupV2() {
     const theme = useTheme();
@@ -58,22 +87,9 @@ export default function SliderGroupV2() {
         aoabAccelerationSlider: number;
     };
 
-    const [sliderState, setSliderState] = useState({
-        staggerPositionSlider: 0,
-        gapPositionSlider: 0,
-        aoatPositionSlider: 0,
-        aoabPositionSlider: 0,
-        staggerVelocitySlider: 0,
-        gapVelocitySlider: 0,
-        aoatVelocitySlider: 0,
-        aoabVelocitySlider: 0,
-        staggerAccelerationSlider: 0,
-        gapAccelerationSlider: 0,
-        aoatAccelerationSlider: 0,
-        aoabAccelerationSlider: 0,
-    });
-
-    const [sendButtonState, setSendButtonState] = useState('false');
+    const [sliderState, setSliderState] = useRecoilState(axisDataState);
+    const livemodeSwitchState = useRecoilValue(liveModeSwitchState);
+    const [sendButtonState, setSendButtonState] = useRecoilState(sendButtonRenderState);
 
     const connectionStatus = {
         [ReadyState.CONNECTING]: 'Connecting',
@@ -84,13 +100,20 @@ export default function SliderGroupV2() {
     }[readyState];
 
     useEffect(() => {
-        if (sendButtonState === 'true') {
-            setSendButtonState('false') // this will cause this to get sent twice since we are updating the state in here but since we sent false the second time it doesnt matter
+        if (livemodeSwitchState == 'true') {
             sendJsonMessage({
                 type: "SliderMessage",
                 sliderValues: sliderState,
-                sendDataButton: sendButtonState, // tis prob isnt nee
             });
+        }
+        else {
+            if(sendButtonState== 'true'){
+            sendJsonMessage({
+                type: "SliderMessage",
+                sliderValues: sliderState,
+            });
+            setSendButtonState('false') // this will cause this to get sent twice since we are updating the state in here but since we sent false the second time it doesnt matter
+            }
         }
         // console.log({
         // 	type: "SliderMessage",
@@ -305,8 +328,8 @@ export default function SliderGroupV2() {
                         </Slider>
                     </Resizable>
                 </Grid>
-
             </Grid>
+            <SendButtonRender></SendButtonRender>
         </React.Fragment>
 
     );
