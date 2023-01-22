@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -13,15 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import LightDarkSwitch from './LightDarkSwitch';
 import StyledSwitch from './RegularSwitch';
 import MainContent from './MainContent';
-
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -76,7 +73,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function DrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -123,18 +120,11 @@ export default function DrawerLeft() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {['Raw Serial Data', 'Display Data'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <FormGroup sx={{marginLeft:'8px'}}>
+          <FormControlLabel control={<Switch defaultChecked />} label="Enable Sliders" />
+          <FormControlLabel control={<Switch defaultChecked />} label="Enable Table" />
+          <FormControlLabel control={<Switch />} label="Enable Console" />
+        </FormGroup>
         <Divider />
         <List>
           <ListItem disablePadding>
