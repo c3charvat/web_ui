@@ -17,19 +17,21 @@ import { useTheme } from '@mui/material/styles';
 function style (theme: Theme){
     const styled1 = {
     backgroundColor:theme.palette.background.default,
+    Display: "flex",
     FlexDirection: 'row',
+    FlexWrap: 'wrap',
     alignItems: "center",
     justifyContent: "flex-start",
     border: "solid 1px #ddd",
-    background: "#f0f0f0",
     margin: '5px',
     padding: '10px',
+    //whiteSpace: 'pre'
     }
     return styled1;
 };
 
 const Item = styled(Paper)(({ theme }) => ({
-    whiteSpace: 'pre'
+    flexShrink: '1'
 }));
 
 function valuetext(value: number) {
