@@ -65,36 +65,3 @@ export default function LightDarkSwitch() {
   </FormGroup>
   );
 }
-
-// I know i need somthing like the code below but im a little stummped how to bring the 
-// color swithcing part in 
-
-// export default function ToggleColorMode() {
-//   const [mode, setMode] = React.useState<'light' | 'dark'>('light');
-//   const colorMode = React.useMemo(
-//     () => ({
-//       toggleColorMode: () => {
-//         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-//       },
-//     }),
-//     [],
-//   );
-
-//   const theme = React.useMemo(
-//     () =>
-//       createTheme({
-//         palette: {
-//           mode,
-//         },
-//       }),
-//     [mode],
-//   );
-
-//   return (
-//     <ColorModeContext.Provider value={colorMode}>
-//       <ThemeProvider theme={theme}>
-//         <MyApp />
-//       </ThemeProvider>
-//     </ColorModeContext.Provider>
-//   );
-// }

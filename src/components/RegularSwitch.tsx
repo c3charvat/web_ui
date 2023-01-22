@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { styled } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
+import Switch, {SwitchProps} from '@mui/material/Switch';
 import useWebSocket from 'react-use-websocket';
 import { liveModeSwitchState } from '../globalState/atoms';
 
-const RegularSwitch = styled(Switch)(({ theme }) => ({
+const RegularSwitch = styled(Switch)<SwitchProps>(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 7,
@@ -82,35 +82,3 @@ export default function StyledSwitch(props: any) {
   );
 }
 
-// I know i need somthing like the code below but im a little stummped how to bring the
-// color swithcing part in
-
-// export default function ToggleColorMode() {
-//   const [mode, setMode] = React.useState<'light' | 'dark'>('light');
-//   const colorMode = React.useMemo(
-//     () => ({
-//       toggleColorMode: () => {
-//         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-//       },
-//     }),
-//     [],
-//   );
-
-//   const theme = React.useMemo(
-//     () =>
-//       createTheme({
-//         palette: {
-//           mode,
-//         },
-//       }),
-//     [mode],
-//   );
-
-//   return (
-//     <ColorModeContext.Provider value={colorMode}>
-//       <ThemeProvider theme={theme}>
-//         <MyApp />
-//       </ThemeProvider>
-//     </ColorModeContext.Provider>
-//   );
-// }

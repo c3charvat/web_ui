@@ -19,6 +19,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Grid, Paper, Typography } from '@mui/material';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { axisDataState, liveModeSwitchState, sendButtonRenderState } from '../globalState/atoms';
 
 const SendButton = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
@@ -27,6 +29,28 @@ const SendButton = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   alignContent: 'end'
 }));
+
+
+function SendButtonRender() {
+  const livemodeSwitchState = useRecoilValue(liveModeSwitchState);
+  const setSendButtonState = useSetRecoilState(sendButtonRenderState);
+  if (livemodeSwitchState === 'false') { // ie its not in trigger mode
+      return (
+          <Grid padding={1} height={40} justifyContent="center">
+              <SendButton>
+                  <Button fullWidth variant='contained' onClick={() => setSendButtonState('true')}>
+                      Send Data
+                  </Button>
+              </SendButton>
+          </Grid>
+      )
+  }
+  else {
+      return (<div></div>)
+  }
+
+
+}
 
 interface User {
   id: GridRowId;
@@ -182,13 +206,7 @@ export default function TableGroup() {
             </Snackbar>
           )}
         </div>
-        <Grid justifyContent="center" padding={1} height={40}>
-          <SendButton>
-            <Button fullWidth variant='contained'>
-              Send Data
-            </Button>
-          </SendButton>
-        </Grid>
+        <SendButtonRender></SendButtonRender>
       </AccordionDetails>
     </Accordion>
   );

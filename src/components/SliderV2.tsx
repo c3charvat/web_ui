@@ -47,7 +47,7 @@ function valuetext(value: number) {
 function SendButtonRender() {
     const livemodeSwitchState = useRecoilValue(liveModeSwitchState);
     const setSendButtonState = useSetRecoilState(sendButtonRenderState);
-    if (livemodeSwitchState == 'false') { // ie its not in trigger mode
+    if (livemodeSwitchState === 'false') { // ie its not in trigger mode
         return (
             <Grid padding={1} height={40} justifyContent="center">
                 <SendButton>
@@ -100,14 +100,14 @@ export default function SliderGroupV2() {
     }[readyState];
 
     useEffect(() => {
-        if (livemodeSwitchState == 'true') {
+        if (livemodeSwitchState === 'true') {
             sendJsonMessage({
                 type: "SliderMessage",
                 sliderValues: sliderState,
             });
         }
         else {
-            if(sendButtonState== 'true'){
+            if(sendButtonState=== 'true'){
             sendJsonMessage({
                 type: "SliderMessage",
                 sliderValues: sliderState,
