@@ -32,10 +32,11 @@ function style(theme: Theme) {
     FlexDirection: "row",
     FlexWrap: "wrap",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
     border: "solid 1px #ddd",
     margin: "5px",
-    padding: "10px",
+    paddingRight: "20px",
+    paddingLeft: "10px",
     //whiteSpace: 'pre'
   };
   return styled1;
@@ -84,6 +85,8 @@ export default function SliderGroupV2() {
   const scenario = useMemo(() => {
     return scenarios.find((s) => s.id === viewing)!;
   }, [scenarios, viewing]);
+  console.log("hello")
+  console.log(scenario);
   const setScenarioData = useCallback((data: Partial<typeof scenario>) => {
     setScenarioState((current) => ({
       ...current,
@@ -163,12 +166,11 @@ export default function SliderGroupV2() {
     <React.Fragment>
       <Grid container>
         <Grid item>
-          <Typography sx={{ whiteSpace: "pre" }}> Stagger Axis </Typography>
           <Resizable
             bounds={"window"}
-            maxHeight={"250px"}
+            maxHeight={"220px"}
             maxWidth={(window.innerWidth - 90) / 2}
-            minHeight={"175px"}
+            minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
             size={{ width, height }}
@@ -177,6 +179,7 @@ export default function SliderGroupV2() {
               setHeight(height + d.height);
             }}
           >
+            <Box sx={{ whiteSpace: "pre" , textAlign: 'right', marginRight: '40px', marginTop:'5px'}}> Stagger Axis </Box>
             <Typography sx={{ fontSize: 14 }} align="left">
               Position (mm)
             </Typography>
@@ -190,7 +193,7 @@ export default function SliderGroupV2() {
               track={false}
               getAriaValueText={valuetext}
               valueLabelDisplay="auto"
-              {...sliderProps("aoabposition")}
+              {...sliderProps("xposition")}
             ></Slider>
             <Typography sx={{ fontSize: 14 }} align="left">
               Velocity (mm/s)
@@ -200,7 +203,7 @@ export default function SliderGroupV2() {
               track={false}
               getAriaValueText={valuetext}
               valueLabelDisplay="auto"
-              {...sliderProps("aoabvelocity")}
+              {...sliderProps("xvelocity")}
             ></Slider>
             <Typography sx={{ fontSize: 14 }} align="left">
               Acceleration (mm/s^2)
@@ -210,17 +213,16 @@ export default function SliderGroupV2() {
               track={false}
               getAriaValueText={valuetext}
               valueLabelDisplay="auto"
-              {...sliderProps("aoabacceleration")}
+              {...sliderProps("xacceleration")}
             ></Slider>
           </Resizable>
         </Grid>
         <Grid item>
-          <Typography sx={{ whiteSpace: "pre" }}> Gap Axis </Typography>
           <Resizable
             bounds={"window"}
-            maxHeight={"250px"}
+            maxHeight={"220px"}
             maxWidth={(window.innerWidth - 90) / 2}
-            minHeight={"175px"}
+            minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
             size={{ width, height }}
@@ -229,8 +231,9 @@ export default function SliderGroupV2() {
               setHeight(height + d.height);
             }}
           >
+            <Box sx={{ whiteSpace: "pre" , textAlign: 'right', marginRight: '40px', marginTop:'5px'}}> Gap Axis </Box>
             <Typography sx={{ fontSize: 14 }} align="left">
-              Position (m/s)
+              Position (mm)
             </Typography>
             <Slider
               sx={{
@@ -242,7 +245,7 @@ export default function SliderGroupV2() {
               track={false}
               getAriaValueText={valuetext}
               valueLabelDisplay="auto"
-              {...sliderProps("aoabposition")}
+              {...sliderProps("yposition")}
             ></Slider>
             Velocity
             <Slider
@@ -250,7 +253,7 @@ export default function SliderGroupV2() {
               track={false}
               getAriaValueText={valuetext}
               valueLabelDisplay="auto"
-              {...sliderProps("aoabvelocity")}
+              {...sliderProps("yvelocity")}
             ></Slider>
             <Typography sx={{ fontSize: 14 }} align="left">
               Acceleration (mm/s^2)
@@ -260,7 +263,7 @@ export default function SliderGroupV2() {
               track={false}
               getAriaValueText={valuetext}
               valueLabelDisplay="auto"
-              {...sliderProps("aoabacceleration")}
+              {...sliderProps("yacceleration")}
             ></Slider>
           </Resizable>
         </Grid>
@@ -268,9 +271,9 @@ export default function SliderGroupV2() {
         <Grid item>
           <Resizable
             bounds={"window"}
-            maxHeight={"250px"}
+            maxHeight={"220px"}
             maxWidth={(window.innerWidth - 90) / 2}
-            minHeight={"175px"}
+            minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
             size={{ width, height }}
@@ -279,7 +282,7 @@ export default function SliderGroupV2() {
               setHeight(height + d.height);
             }}
           >
-            <Typography sx={{ whiteSpace: "pre" }}> A.O.A Top </Typography>
+            <Box sx={{ whiteSpace: "pre" , textAlign: 'right', marginRight: '40px', marginTop:'5px'}}> A.O.A. Top</Box>
             <Typography sx={{ fontSize: 14 }} align="left">
               Position (m/s)
             </Typography>
@@ -320,12 +323,11 @@ export default function SliderGroupV2() {
         </Grid>
 
         <Grid item>
-          <Typography sx={{ whiteSpace: "pre" }}> A.O.A Bottom</Typography>
           <Resizable
             bounds={"window"}
-            maxHeight={"250px"}
+            maxHeight={"220px"}
             maxWidth={(window.innerWidth - 90) / 2}
-            minHeight={"175px"}
+            minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
             size={{ width, height }}
@@ -334,6 +336,7 @@ export default function SliderGroupV2() {
               setHeight(height + d.height);
             }}
           >
+            <Box sx={{ whiteSpace: "pre" , textAlign: 'right', marginRight: '40px', marginTop:'5px'}}> A.O.A. Bottom </Box>
             <Typography sx={{ fontSize: 14 }} align="left">
               Position (m/s)
             </Typography>
