@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import { useRecoilState } from 'recoil';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,6 +20,7 @@ import Switch from '@mui/material/Switch';
 import LightDarkSwitch from './LightDarkSwitch';
 import StyledSwitch from './RegularSwitch';
 import MainContent from './MainContent';
+import { sliderUIRenderState,tableUIRenderState,consoleUIRenderState } from '../globalState/atoms';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -70,11 +72,23 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+
 export default function DrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-
-
+  const [consoleRenderState, setConsoleRenderState]  = useRecoilState(consoleUIRenderState);
+  const [tableRenderState, setTableRenderState]  = useRecoilState(tableUIRenderState);
+  const [sliderRenderState, setSliderRenderState] = useRecoilState(sliderUIRenderState);
+  
+  const HandleSliderChange = () =>{
+    setSliderRenderState(sliderRenderState === 'true' ? 'false' : 'true')
+  };
+  const HandleTableChange = () =>{
+    setTableRenderState(tableRenderState === 'true' ? 'false' : 'true')
+  };
+  const HandleConsoleChange = () =>{
+    setConsoleRenderState(consoleRenderState === 'true' ? 'false' : 'true')
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -121,9 +135,9 @@ export default function DrawerLeft() {
         </DrawerHeader>
         <Divider />
         <FormGroup sx={{marginLeft:'8px'}}>
-          <FormControlLabel control={<Switch defaultChecked />} label="Enable Sliders" />
-          <FormControlLabel control={<Switch defaultChecked />} label="Enable Table" />
-          <FormControlLabel control={<Switch />} label="Enable Console" />
+          <FormControlLabel control={<Switch defaultChecked onChange={HandleSliderChange} />} label="Enable Sliders" />
+          <FormControlLabel control={<Switch defaultChecked onChange={HandleTableChange} />} label="Enable Table" />
+          <FormControlLabel control={<Switch onChange={HandleConsoleChange} />} label="Enable Console" />
         </FormGroup>
         <Divider />
         <List>
