@@ -3,7 +3,7 @@ import {
   DataGrid,
   GridRowModel,
   GridRowParams,
-  GridSelectionModel,
+  GridSelectionModel, 
   GridCallbackDetails,
   GridColumns,
   GridRowId,
@@ -23,7 +23,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Grid, Paper, Typography } from '@mui/material';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
-import { axisDataState,selectedTableRowsState, liveModeSwitchState, sendButtonRenderState } from '../globalState/atoms';
+import { axisDataState, selectedTableRowsState , liveModeSwitchState, sendButtonRenderState } from '../globalState/atoms';
 
 const SendButton = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
@@ -38,18 +38,18 @@ function SendButtonRender() {
   const livemodeSwitchState = useRecoilValue(liveModeSwitchState);
   const setSendButtonState = useSetRecoilState(sendButtonRenderState);
   if (livemodeSwitchState === 'false') { // ie its not in trigger mode
-    return (
-      <Grid padding={1} height={40} justifyContent="center">
-        <SendButton>
-          <Button fullWidth variant='contained' onClick={() => setSendButtonState('true')}>
-            Send Data
-          </Button>
-        </SendButton>
-      </Grid>
-    )
+      return (
+          <Grid padding={1} height={40} justifyContent="center">
+              <SendButton>
+                  <Button fullWidth variant='contained' onClick={() => setSendButtonState('true')}>
+                      Send Data
+                  </Button>
+              </SendButton>
+          </Grid>
+      )
   }
   else {
-    return (<div></div>)
+      return (<div></div>)
   }
 
 
@@ -107,7 +107,7 @@ export default function TableGroup() {
   const mutateRow = useFakeMutation();
   const noButtonRef = React.useRef<HTMLButtonElement>(null);
   const [promiseArguments, setPromiseArguments] = React.useState<any>(null);
-  const [selectedTableRows, setSelectedTableRows] = useRecoilState(selectedTableRowsState);
+  const [selectedRows, setSelectedRows] = useRecoilState<any>(selectedTableRowsState );
 
   const [snackbar, setSnackbar] = React.useState<Pick<
     AlertProps,
@@ -130,7 +130,7 @@ export default function TableGroup() {
     [],
   );
 
-  const processSelected = (selectionModel: GridSelectionModel, params: GridRowParams, details: GridCallbackDetails<any>) => {
+  const processSelected = (selectionModel: GridSelectionModel, params: GridRowParams,details: GridCallbackDetails<any>) => {
     console.log(selectionModel);
     console.log(details);
   }
@@ -164,7 +164,7 @@ export default function TableGroup() {
     // noButtonRef.current?.focus();
   };
 
-  const handleStateDataUpdate = (response: any) => {
+  const handleStateDataUpdate = (response:any) =>{
     console.log(response)
   }
 
@@ -214,17 +214,13 @@ export default function TableGroup() {
             experimentalFeatures={{ newEditingApi: true }}
             onSelectionModelChange={(ids) => {
               const selectedIDs = new Set(ids);
-              console.log(ids)
-              const selectedtableRows = rows.filter((row) =>
+              const selectedRows = rows.filter((row) =>
                 selectedIDs.has(row.id),
               );
-
-              setSelectedTableRows(selectedtableRows);
+              console.log(selectedRows)
+              setSelectedRows(selectedRows);
             }}
           />
-          <pre style={{ fontSize: 10 }}>
-            {JSON.stringify(selectedTableRows, null, 4)}
-          </pre>
           {!!snackbar && (
             <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
               <Alert {...snackbar} onClose={handleCloseSnackbar} />
