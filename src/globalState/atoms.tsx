@@ -1,6 +1,12 @@
 import {atom, atomFamily} from 'recoil';
+import { GridValidRowModel } from '@mui/x-data-grid';
 
 export const serialConsoleListState = atom({
+    key: 'serial-console-atom',
+    default: [],
+});
+
+export const selectedTableRowsState = atom({
     key: 'serial-console-atom',
     default: [],
 });
@@ -31,3 +37,21 @@ export const sendButtonRenderState = atom({
     key: 'send-button-atom',
     default: 'false',
 });
+
+
+export const sliderUIRenderState = atom({
+    key: 'slider-ui-switch-atom',
+    default: 'true',
+});
+
+export const tableUIRenderState = atom({
+    key: 'table-ui-switch-atom',
+    default: 'true',
+});
+
+export const consoleUIRenderState = atom({
+    key: 'console-ui-switch-atom',
+    default: 'false',
+});
+
+

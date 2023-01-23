@@ -2,6 +2,9 @@ import * as React from 'react';
 import {
   DataGrid,
   GridRowModel,
+  GridRowParams,
+  GridSelectionModel,
+  GridCallbackDetails,
   GridColumns,
   GridRowId,
   GridRowsProp,
@@ -20,7 +23,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Grid, Paper, Typography } from '@mui/material';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
-import { axisDataState, liveModeSwitchState, sendButtonRenderState } from '../globalState/atoms';
+import { axisDataState,selectedTableRowsState, liveModeSwitchState, sendButtonRenderState } from '../globalState/atoms';
 
 const SendButton = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
@@ -35,18 +38,18 @@ function SendButtonRender() {
   const livemodeSwitchState = useRecoilValue(liveModeSwitchState);
   const setSendButtonState = useSetRecoilState(sendButtonRenderState);
   if (livemodeSwitchState === 'false') { // ie its not in trigger mode
-      return (
-          <Grid padding={1} height={40} justifyContent="center">
-              <SendButton>
-                  <Button fullWidth variant='contained' onClick={() => setSendButtonState('true')}>
-                      Send Data
-                  </Button>
-              </SendButton>
-          </Grid>
-      )
+    return (
+      <Grid padding={1} height={40} justifyContent="center">
+        <SendButton>
+          <Button fullWidth variant='contained' onClick={() => setSendButtonState('true')}>
+            Send Data
+          </Button>
+        </SendButton>
+      </Grid>
+    )
   }
   else {
-      return (<div></div>)
+    return (<div></div>)
   }
 
 
@@ -72,8 +75,8 @@ interface User {
 
 const useFakeMutation = () => {
   return React.useCallback(
-    (user: Partial<User>) =>
-      new Promise<Partial<User>>((resolve, reject) =>
+    (user: User) =>
+      new Promise((resolve, reject) =>
         setTimeout(() => {
           if (user.name?.trim() === '') {
             reject();
@@ -89,7 +92,7 @@ const useFakeMutation = () => {
 function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
 
   for (let x in newRow) {
-    console.log(x);
+    //console.log(x);
     if (newRow[x] !== oldRow[x]) {
       return `the value from ${oldRow[x]}' to '${newRow[x]}'`;
     }
@@ -104,6 +107,7 @@ export default function TableGroup() {
   const mutateRow = useFakeMutation();
   const noButtonRef = React.useRef<HTMLButtonElement>(null);
   const [promiseArguments, setPromiseArguments] = React.useState<any>(null);
+  const [selectedTableRows, setSelectedTableRows] = useRecoilState(selectedTableRowsState);
 
   const [snackbar, setSnackbar] = React.useState<Pick<
     AlertProps,
@@ -126,6 +130,10 @@ export default function TableGroup() {
     [],
   );
 
+  const processSelected = (selectionModel: GridSelectionModel, params: GridRowParams, details: GridCallbackDetails<any>) => {
+    console.log(selectionModel);
+    console.log(details);
+  }
   const handleNo = () => {
     const { oldRow, resolve } = promiseArguments;
     resolve(oldRow); // Resolve with the old row to not update the internal state
@@ -138,11 +146,12 @@ export default function TableGroup() {
     try {
       // Make the HTTP request to save in the backend
       const response = await mutateRow(newRow);
-      setSnackbar({ children: 'User successfully saved', severity: 'success' });
+      setSnackbar({ children: 'Successfully saved', severity: 'success' });
       resolve(response);
+      handleStateDataUpdate(response);
       setPromiseArguments(null);
     } catch (error) {
-      setSnackbar({ children: "Name can't be empty", severity: 'error' });
+      setSnackbar({ children: "Cell Can't be empty", severity: 'error' });
       reject(oldRow);
       setPromiseArguments(null);
     }
@@ -154,6 +163,10 @@ export default function TableGroup() {
     // the dialog is fully open.
     // noButtonRef.current?.focus();
   };
+
+  const handleStateDataUpdate = (response: any) => {
+    console.log(response)
+  }
 
   const renderConfirmDialog = () => {
     if (!promiseArguments) {
@@ -199,7 +212,19 @@ export default function TableGroup() {
             checkboxSelection={true}
             processRowUpdate={processRowUpdate}
             experimentalFeatures={{ newEditingApi: true }}
+            onSelectionModelChange={(ids) => {
+              const selectedIDs = new Set(ids);
+              console.log(ids)
+              const selectedtableRows = rows.filter((row) =>
+                selectedIDs.has(row.id),
+              );
+
+              setSelectedTableRows(selectedtableRows);
+            }}
           />
+          <pre style={{ fontSize: 10 }}>
+            {JSON.stringify(selectedTableRows, null, 4)}
+          </pre>
           {!!snackbar && (
             <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
               <Alert {...snackbar} onClose={handleCloseSnackbar} />
