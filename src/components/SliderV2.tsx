@@ -85,8 +85,8 @@ export default function SliderGroupV2() {
   const scenario = useMemo(() => {
     return scenarios.find((s) => s.id === viewing)!;
   }, [scenarios, viewing]);
-  console.log("hello")
-  console.log(scenario);
+  //console.log("hello")
+  //console.log(scenario);
   const setScenarioData = useCallback((data: Partial<typeof scenario>) => {
     setScenarioState((current) => ({
       ...current,

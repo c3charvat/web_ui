@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Typography } from '@mui/material';
 import SliderGroupV2 from './SliderV2';
-import TableGroup from './TableUI';
+//import TableGroup from './TableUI';
+import TableUIV2 from './TableUIV2';
 import ConsoleGroup from './ConsoleUI';
 import { sliderUIRenderState,tableUIRenderState,consoleUIRenderState } from '../globalState/atoms';
 var logo = require('../img/green_logo.png');
@@ -26,7 +27,7 @@ function TableUIRenderStateRender() {
     if (tableUIRender === 'true') { // ie its not in trigger mode
         return (
             <Typography paragraph>
-                <TableGroup></TableGroup>
+                <TableUIV2></TableUIV2>
             </Typography>
         )
     }
