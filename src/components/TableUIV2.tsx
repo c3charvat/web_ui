@@ -7,6 +7,7 @@ import MaterialReactTable, {
 } from 'material-react-table';
 
 export type Person = {
+    id: string;
     firstName: string;
     lastName: string;
     address: string;
@@ -19,26 +20,38 @@ export default function TableUIV2(){
     () => [
       //column definitions...
       {
+        accessorKey: 'id',
+        header: 'id',
+        enableEditing: false,
+        enableHiding: false,
+        
+      },
+      {
         accessorKey: 'firstName',
         header: 'First Name',
+        enableHiding: false,
       },
       {
         accessorKey: 'lastName',
         header: 'Last Name',
+        enableHiding: false,
       },
 
       {
         accessorKey: 'address',
         header: 'Address',
+        enableHiding: false,
       },
       {
         accessorKey: 'city',
         header: 'City',
+        enableHiding: false,
       },
 
       {
         accessorKey: 'state',
         header: 'State',
+        enableHiding: false,
       }, //end
     ],
     [],
@@ -46,17 +59,30 @@ export default function TableUIV2(){
 
   const [tableData, setTableData] = useRecoilState(tableStateV2);
 
-  const handleSaveRow: MaterialReactTableProps<Person>['onEditingRowSave'] =
-    async ({ exitEditingMode, row, values }) => {
+
+
+
+  const handleSaveRow: MaterialReactTableProps<Person>['onEditingRowSave'] = ({ exitEditingMode, row, values }) => {
       //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here.
-      //tableData.data[row.index] = values;
-      console.log(tableData.data[row.index])
-      console.log(tableData.data)
-      console.log(values)
-      setTableData();//  Help me tight here please
-      console.log(tableData.data[row.index])
-      console.log(tableData.data)
-      //console.log(tableData)
+      //console.log(row)
+      //console.log(values.address)
+      setTableData(
+        current =>{
+          //console.log(...current.data)
+          return{
+          ...current.data,
+          data: current.data.map(item => {
+            console.log(row.index)
+            if(item.id !== row.index.toString()){
+              //console.log(item)
+              return item
+            }
+            console.log(item)
+            console.log(values)
+            return values
+          })
+        }
+      });
       exitEditingMode(); //required to exit editing mode
     };
 
