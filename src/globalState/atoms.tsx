@@ -7,7 +7,7 @@ export const serialConsoleListState = atom({
 });
 
 export const selectedTableRowsState = atom({
-  key: "serial-console-atom",
+  key: "serial-console-atom2",
   default: [],
 });
 
@@ -148,6 +148,7 @@ export const tableStateV2 = atom({
   default: {
     data: [
       {
+        id: "0",
         firstName: "Dylan",
         lastName: "Murray",
         address: "261 Erdman Ford",
@@ -155,6 +156,7 @@ export const tableStateV2 = atom({
         state: "Kentucky",
       },
       {
+        id: "1",
         firstName: "Raquel",
         lastName: "Kohler",
         address: "769 Dominic Grove",
@@ -162,6 +164,7 @@ export const tableStateV2 = atom({
         state: "Ohio",
       },
       {
+        id: "2",
         firstName: "Ervin",
         lastName: "Reinger",
         address: "566 Brakus Inlet",
@@ -169,6 +172,7 @@ export const tableStateV2 = atom({
         state: "West Virginia",
       },
       {
+        id: "3",
         firstName: "Brittany",
         lastName: "McCullough",
         address: "722 Emie Stream",
@@ -176,6 +180,7 @@ export const tableStateV2 = atom({
         state: "Nebraska",
       },
       {
+        id: "4",
         firstName: "Branson",
         lastName: "Frami",
         address: "32188 Larkin Turnpike",
