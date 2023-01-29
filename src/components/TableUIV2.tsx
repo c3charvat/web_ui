@@ -24,6 +24,7 @@ export default function TableUIV2(){
         header: 'id',
         enableEditing: false,
         enableHiding: false,
+        size:20,
         
       },
       {
@@ -92,6 +93,7 @@ export default function TableUIV2(){
       data={tableData.data}
       editingMode="row"
       enableEditing
+      initialState={{ density: 'compact' }}
       onEditingRowSave={handleSaveRow}
     />
   );
