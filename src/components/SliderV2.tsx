@@ -159,7 +159,7 @@ export default function SliderGroupV2() {
     };
   };
 
-  const [width, setWidth] = React.useState((window.innerWidth - 90) / 2);
+  const [width, setWidth] = React.useState((window.innerWidth-90) / 2);
   const [height, setHeight] = React.useState(200);
 
   return (
@@ -169,7 +169,7 @@ export default function SliderGroupV2() {
           <Resizable
             bounds={"window"}
             maxHeight={"220px"}
-            maxWidth={(window.innerWidth - 90) / 2}
+            maxWidth={(window.innerWidth) / 2}
             minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
@@ -221,7 +221,7 @@ export default function SliderGroupV2() {
           <Resizable
             bounds={"window"}
             maxHeight={"220px"}
-            maxWidth={(window.innerWidth - 90) / 2}
+            maxWidth={(window.innerWidth) / 2}
             minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
@@ -272,7 +272,7 @@ export default function SliderGroupV2() {
           <Resizable
             bounds={"window"}
             maxHeight={"220px"}
-            maxWidth={(window.innerWidth - 90) / 2}
+            maxWidth={(window.innerWidth) / 2}
             minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
@@ -326,7 +326,7 @@ export default function SliderGroupV2() {
           <Resizable
             bounds={"window"}
             maxHeight={"220px"}
-            maxWidth={(window.innerWidth - 90) / 2}
+            maxWidth={(window.innerWidth) / 2}
             minHeight={"200px"}
             minWidth={"200px"}
             style={style(theme)}
