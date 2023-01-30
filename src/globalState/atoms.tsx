@@ -54,14 +54,17 @@ export const consoleUIRenderState = atom({
   default: "false",
 });
 
+export const selectedSenarioState = atom({
+  key: "console-ui-switch-atom",
+  default: 1,
+});
+
 export const scenarioState = atom({
   key: "scenarios",
   default: {
-    viewing: 1,
     scenarios: [
       {
         id: 1,
-        name: "Scenario 1",
         xposition: 25,
         yposition: 25,
         aoatposition: 5,
@@ -77,7 +80,6 @@ export const scenarioState = atom({
       },
       {
         id: 2,
-        name: "Scenario 2",
         xposition: 25,
         yposition: 25,
         aoatposition: 5,
@@ -109,7 +111,6 @@ export const scenarioState = atom({
       },
       {
         id: 4,
-        name: "Scenario 4",
         xposition: 25,
         yposition: 25,
         aoatposition: 5,
@@ -125,7 +126,6 @@ export const scenarioState = atom({
       },
       {
         id: 5,
-        name: "Scenario 5",
         xposition: 25,
         yposition: 25,
         aoatposition: 5,
@@ -138,54 +138,6 @@ export const scenarioState = atom({
         yacceleration: 10,
         aoatacceleration: 10,
         aoabacceleration: 10,
-      },
-    ],
-  },
-});
-
-export const tableStateV2 = atom({
-  key: "scenariosV2",
-  default: {
-    data: [
-      {
-        id: "0",
-        firstName: "Dylan",
-        lastName: "Murray",
-        address: "261 Erdman Ford",
-        city: "East Daphne",
-        state: "Kentucky",
-      },
-      {
-        id: "1",
-        firstName: "Raquel",
-        lastName: "Kohler",
-        address: "769 Dominic Grove",
-        city: "Columbus",
-        state: "Ohio",
-      },
-      {
-        id: "2",
-        firstName: "Ervin",
-        lastName: "Reinger",
-        address: "566 Brakus Inlet",
-        city: "South Linda",
-        state: "West Virginia",
-      },
-      {
-        id: "3",
-        firstName: "Brittany",
-        lastName: "McCullough",
-        address: "722 Emie Stream",
-        city: "Lincoln",
-        state: "Nebraska",
-      },
-      {
-        id: "4",
-        firstName: "Branson",
-        lastName: "Frami",
-        address: "32188 Larkin Turnpike",
-        city: "Charleston",
-        state: "South Carolina",
       },
     ],
   },

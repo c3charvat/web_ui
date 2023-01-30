@@ -9,3 +9,20 @@ import { serialConsoleListState } from "./atoms";
 //     default: [],
 // });
 // 
+
+
+// const senarioSelector = selector({
+//     key: 'scenario',
+//     get: ({get})=>{
+//       const selectedSenario=get(selectedSenarioState)
+//       const senarioData=get(scenarioState)
+//       return{
+//         ...senarioData,
+//         scenarios: senarioData.scenarios.map(item => {
+//           if(selectedSenario.toString() == item.id.toString() ){
+//             return item
+//           }
+//         })
+//       }
+//     },
+// })

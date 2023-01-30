@@ -20,6 +20,7 @@ import { useTheme } from "@mui/material/styles";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import {
   axisDataState,
+  selectedSenarioState,
   liveModeSwitchState,
   scenarioState,
   sendButtonRenderState,
@@ -80,18 +81,18 @@ function SendButtonRender() {
 export default function SliderGroupV2() {
   const theme = useTheme();
   const [socketUrl, setSocketUrl] = useState("ws://localhost:10000");
-  const [{ scenarios, viewing }, setScenarioState] =
-    useRecoilState(scenarioState);
+  const [{scenarios}, setScenarioState] = useRecoilState(scenarioState);
+  const selectedSenario = useRecoilValue(selectedSenarioState)
   const scenario = useMemo(() => {
-    return scenarios.find((s) => s.id === viewing)!;
-  }, [scenarios, viewing]);
+    return scenarios.find((s) => s.id === selectedSenario )!;
+  }, [scenarios]);
   //console.log("hello")
   //console.log(scenario);
   const setScenarioData = useCallback((data: Partial<typeof scenario>) => {
     setScenarioState((current) => ({
       ...current,
       scenarios: current.scenarios.map((s) => {
-        if (s.id === current.viewing) {
+        if (s.id === selectedSenario) {
           return {
             ...s,
             ...data,

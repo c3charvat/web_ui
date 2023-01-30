@@ -1,19 +1,29 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useState, useRef } from 'react';
 import { useRecoilState } from 'recoil';
-import { tableStateV2 } from '../globalState/atoms';
+import { scenarioState, selectedSenarioState} from '../globalState/atoms';
 import MaterialReactTable, {
   MaterialReactTableProps,
   MRT_ColumnDef,
+  MRT_TableInstance,
 } from 'material-react-table';
 
 export type Person = {
-    id: string;
-    firstName: string;
-    lastName: string;
-    address: string;
-    city: string;
-    state: string;
+  id: number;
+  xposition: number;
+  yposition: number;
+  aoatposition: number;
+  aoabposition: number;
+  xvelocity: number;
+  yvelocity: number;
+  aoatvelocity:number;
+  aoabvelocity: number;
+  xacceleration: number;
+  yacceleration: number;
+  aoatacceleration: number;
+  aoabacceleration: number;
   };
+
+  
 
 export default function TableUIV2(){
   const columns = useMemo<MRT_ColumnDef<Person>[]>(
@@ -28,40 +38,85 @@ export default function TableUIV2(){
         
       },
       {
-        accessorKey: 'firstName',
-        header: 'First Name',
+        accessorKey: 'xposition',
+        header: 'Gap Pos.',
         enableHiding: false,
       },
       {
-        accessorKey: 'lastName',
-        header: 'Last Name',
-        enableHiding: false,
-      },
-
-      {
-        accessorKey: 'address',
-        header: 'Address',
-        enableHiding: false,
-      },
-      {
-        accessorKey: 'city',
-        header: 'City',
+        accessorKey: 'yposition',
+        header: 'Stagger Pos.',
         enableHiding: false,
       },
 
       {
-        accessorKey: 'state',
-        header: 'State',
+        accessorKey: 'aoatposition',
+        header: 'AoA T Pos.',
         enableHiding: false,
-      }, //end
+      },
+      {
+        accessorKey: 'aoabposition',
+        header: 'AoA B Pos',
+        enableHiding: false,
+      },
+      {
+        accessorKey: 'xvelocity',
+        header: 'Gap Vel.',
+        enableHiding: false,
+      },
+      {
+        accessorKey: 'yvelocity',
+        header: 'Stagger Vel.',
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: 'aoatvelocity',
+        header: 'AoA T Vel.',
+        enableHiding: false,
+      },
+      {
+        accessorKey: 'aoabvelocity',
+        header: 'AoA B Vel',
+        enableHiding: false,
+      },
+      {
+        accessorKey: 'xacceleration',
+        header: 'Gap Accel.',
+        enableHiding: false,
+      },
+      {
+        accessorKey: 'yacceleration',
+        header: 'Stagger Accel.',
+        enableHiding: false,
+      },
+
+      {
+        accessorKey: 'aoatacceleration',
+        header: 'AoA T Accel.',
+        enableHiding: false,
+      },
+      {
+        accessorKey: 'aoabacceleration',
+        header: 'AoA B Accel.',
+        enableHiding: false,
+      },//end
     ],
     [],
   );
 
-  const [tableData, setTableData] = useRecoilState(tableStateV2);
+  const [tableData, setTableData] = useRecoilState(scenarioState);
+  //const [rowSelection, setRowSelection] = useRecoilState(selectedSenarioState)
+  const [rowSelection, setRowSelection] = useState({});
+  const tableInstanceRef = useRef<MRT_TableInstance<Person>>(null);
 
 
-
+  const someEventHandler = () => {
+    const rowSelection = tableInstanceRef?.current?.getState().rowSelection
+    console.log(rowSelection)
+    // YOU NEED TO USE LOADASH HERE I GUESS....
+  };
+  
+  
 
   const handleSaveRow: MaterialReactTableProps<Person>['onEditingRowSave'] = ({ exitEditingMode, row, values }) => {
       //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here.
@@ -71,10 +126,10 @@ export default function TableUIV2(){
         current =>{
           //console.log(...current.data)
           return{
-          ...current.data,
-          data: current.data.map(item => {
+          ...current.scenarios,
+          scenarios: current.scenarios.map(item => {
             console.log(row.index)
-            if(item.id !== row.index.toString()){
+            if(item.id.toString() !== row.index.toString()){
               //console.log(item)
               return item
             }
@@ -90,11 +145,16 @@ export default function TableUIV2(){
   return (
     <MaterialReactTable
       columns={columns}
-      data={tableData.data}
+      data={tableData.scenarios}
       editingMode="row"
       enableEditing
       initialState={{ density: 'compact' }}
       onEditingRowSave={handleSaveRow}
+      enableRowSelection
+      onRowSelectionChange={someEventHandler}
+      tableInstanceRef={tableInstanceRef}
+      enableSelectAll={false}
+      enableMultiRowSelection={false} //shows radio buttons instead of checkboxes
     />
   );
 };
